@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>相川剛範 | 戦略的1to1コンシェルジュ</title>
+
+  <!-- OGP（LINEでシェアした時のプレビュー用） -->
+  <meta property="og:title" content="相川剛範 | 戦略的1to1コンシェルジュ">
+  <meta property="og:description" content="合同会社A-Connect｜戦略的1to1コンシェルジュ 相川剛範のデジタル名刺です。">
+  <meta property="og:type" content="website">
+
+  <!-- LIFF SDK -->
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8d5a3;
+      --dark: #0d0d0d;
+      --dark-2: #161616;
+      --dark-3: #1e1e1e;
+      --text: #f5f0e8;
+      --muted: #9a9280;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--dark);
+      font-family: 'Noto Serif JP', serif;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(201,168,76,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .card-wrapper {
+      width: 100%;
+      max-width: 400px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── 上部ゴールドライン ── */
+    .top-line {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin-bottom: 32px;
+      animation: lineGrow 1s ease 0.3s both;
+      transform-origin: center;
+    }
+    @keyframes lineGrow {
+      from { transform: scaleX(0); opacity: 0; }
+      to   { transform: scaleX(1); opacity: 1; }
+    }
+
+    /* ── ロゴエリア ── */
+    .logo-area {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      padding: 0 4px;
+    }
+
+    .company-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .tag {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      border: 1px solid rgba(201,168,76,0.25);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── メインネーム ── */
+    .name-section {
+      width: 100%;
+      padding: 0 4px;
+      margin-bottom: 10px;
+    }
+
+    .name-ja {
+      font-size: 52px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .name-reading {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    /* ── 区切り線 ── */
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 0 20px 4px;
+    }
+
+    /* ── 肩書き ── */
+    .title-section {
+      width: 100%;
+      padding: 0 4px;
+      margin-bottom: 40px;
+    }
+
+    .title-main {
+      font-size: 15px;
+      letter-spacing: 0.2em;
+      color: var(--gold-light);
+      margin-bottom: 6px;
+      font-weight: 400;
+    }
+
+    .company-name {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+
+    /* ── ボトムライン ── */
+    .bottom-line {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+      margin-bottom: 28px;
+    }
+
+    /* ── ボタンエリア ── */
+    .actions {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn-line {
+      width: 100%;
+      padding: 16px;
+      background: #06C755;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 15px;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-line:active { transform: scale(0.97); opacity: 0.85; }
+
+    .btn-line svg { width: 22px; height: 22px; fill: white; }
+
+    .btn-share {
+      width: 100%;
+      padding: 14px;
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 8px;
+      color: var(--gold-light);
+      font-family: 'Noto Serif JP', serif;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-share:active { transform: scale(0.97); background: rgba(201,168,76,0.05); }
+
+    /* ── フッター ── */
+    .footer {
+      margin-top: 28px;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: rgba(154,146,128,0.4);
+    }
+
+    /* ── トースト通知 ── */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--dark-3);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold-light);
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<div class="card-wrapper">
+  <div class="top-line"></div>
+
+  <div class="logo-area">
+    <span class="company-label">A-Connect LLC</span>
+    <span class="tag">CONCIERGE</span>
+  </div>
+
+  <div class="name-section">
+    <div class="name-ja">相川剛範</div>
+    <div class="name-reading">Takenori Aikawa</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="title-section">
+    <div class="title-main">戦略的1to1コンシェルジュ</div>
+    <div class="company-name">合同会社A-Connect</div>
+  </div>
+
+  <div class="bottom-line"></div>
+
+  <div class="actions">
+    <!-- LINEでシェアボタン -->
+    <button class="btn-line" id="shareBtn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+      LINEでこの名刺をシェア
+    </button>
+
+    <!-- URLコピーボタン -->
+    <button class="btn-share" id="copyBtn">
+      🔗 &nbsp; リンクをコピー
+    </button>
+  </div>
+
+  <div class="footer">A-Connect LLC &nbsp;·&nbsp; Digital Business Card</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── LIFF ID を入れる場所 ──
+  // LINE Developersで取得したLIFF IDをここに入れてください
+  const LIFF_ID = "YOUR_LIFF_ID_HERE";
+
+  // シェアするメッセージの内容（Flex Message）
+  const shareMessage = {
+    type: "flex",
+    altText: "相川剛範の名刺",
+    contents: {
+      type: "bubble",
+      size: "kilo",
+      header: {
+        type: "box",
+        layout: "vertical",
+        backgroundColor: "#0d0d0d",
+        paddingAll: "20px",
+        contents: [
+          {
+            type: "text",
+            text: "A-Connect LLC",
+            color: "#c9a84c",
+            size: "xs",
+            letterSpacing: "3px"
+          }
+        ]
+      },
+      body: {
+        type: "box",
+        layout: "vertical",
+        backgroundColor: "#161616",
+        paddingAll: "20px",
+        spacing: "sm",
+        contents: [
+          {
+            type: "text",
+            text: "相川剛範",
+            color: "#f5f0e8",
+            size: "xxl",
+            weight: "bold"
+          },
+          {
+            type: "text",
+            text: "Takenori Aikawa",
+            color: "#9a9280",
+            size: "xs"
+          },
+          { type: "separator", margin: "md", color: "#c9a84c" },
+          {
+            type: "text",
+            text: "戦略的1to1コンシェルジュ",
+            color: "#e8d5a3",
+            size: "sm",
+            margin: "md"
+          },
+          {
+            type: "text",
+            text: "合同会社A-Connect",
+            color: "#9a9280",
+            size: "xs"
+          }
+        ]
+      },
+      footer: {
+        type: "box",
+        layout: "vertical",
+        backgroundColor: "#0d0d0d",
+        paddingAll: "16px",
+        contents: [
+          {
+            type: "button",
+            action: {
+              type: "uri",
+              label: "詳細を見る",
+              uri: window.location.href
+            },
+            style: "primary",
+            color: "#c9a84c",
+            height: "sm"
+          }
+        ]
+      }
+    }
+  };
+
+  // ── LIFF 初期化 ──
+  async function initLiff() {
+    if (LIFF_ID === "YOUR_LIFF_ID_HERE") return; // 未設定の場合はスキップ
+    try {
+      await liff.init({ liffId: LIFF_ID });
+    } catch (e) {
+      console.warn("LIFF初期化エラー:", e);
+    }
+  }
+
+  // ── LINEシェアボタン ──
+  document.getElementById("shareBtn").addEventListener("click", async () => {
+    if (LIFF_ID === "YOUR_LIFF_ID_HERE") {
+      showToast("⚠️ LIFF IDを設定してください");
+      return;
+    }
+    try {
+      if (!liff.isLoggedIn()) {
+        liff.login();
+        return;
+      }
+      const result = await liff.shareTargetPicker([shareMessage]);
+      if (result?.status === "success") {
+        showToast("✅ シェアしました！");
+      }
+    } catch (e) {
+      showToast("シェアをキャンセルしました");
+      console.warn(e);
+    }
+  });
+
+  // ── URLコピーボタン ──
+  document.getElementById("copyBtn").addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast("📋 URLをコピーしました");
+    } catch {
+      showToast("コピーに失敗しました");
+    }
+  });
+
+  // ── トースト表示 ──
+  function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 2500);
+  }
+
+  initLiff();
+</script>
+</body>
+</html>
